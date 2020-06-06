@@ -4,6 +4,7 @@
 //window.addEventListener("load", main);
 
 var tick = 1690;
+var circles = [];
 
 // return JSON data from any file path (asynchronous)
 function getJSON(path) {
@@ -21,7 +22,7 @@ function main(data) {
     console.log("main starting")
     var x = 51.505;
     var y = -0.09;
-    var radius = 10 /10;
+    var radius = 0;
     console.log("read")
     //var accessToken = "pk.eyJ1IjoiYmVucGFyc29ucyIsImEiOiJja2FyYXpseGswaDdiMnpwcjdpeHNoc3V3In0.2ViTP8JCg2WcVpBRycg0EA";
     var mymap = L.map('mapid').setView([37.405074, -97.163086], 5);
@@ -34,17 +35,17 @@ function main(data) {
         accessToken: 'pk.eyJ1IjoiYmVucGFyc29ucyIsImEiOiJja2FyYXpseGswaDdiMnpwcjdpeHNoc3V3In0.2ViTP8JCg2WcVpBRycg0EA'
     }).addTo(mymap);
 
-    var cirlces = [];
     for (city of data) {
         // TODO lat/longs are offset?
         var circle = L.circle([city.lat, city.long], {
             color: 'red',
             fillColor: '#f03',
-            fillOpacity: 0.5,
-            radius: radius
+            fillOpacity: 0.3,
+            radius: radius,
+            stroke: false,
         }).addTo(mymap);
         circle.bindPopup(city.title);
-        cirlces.push(circle);
+        circles.push(circle);
     }
     
 
@@ -60,30 +61,17 @@ function main(data) {
 
     var interval1 = setInterval(
         ()=>{
-            return;
-            tick++;
-            if (tick > 2020) {
+            console.log(tick);
+            if (tick > 2011) {
                 clearInterval(interval1);
             }
-            var nyPop = newYork[tick];
-            var laPop = la[tick];
-            var chicagoPop = chicago[tick];
-            var houstonPop = houston[tick];
-            if (nyPop) {
-                //console.log(tick + " " + nyPop + " NY");
-                circle.setRadius(Math.sqrt(nyPop) * 100);
+            for (var i = 0; i < circles.length; i++) {
+                var pop = data[i].popData[tick];
+                if (pop) {
+                    circles[i].setRadius(Math.sqrt(pop) * 100);
+                }
+                //debugger;
             }
-            if (laPop) {
-                //console.log(tick + " " + laPop + " LA");
-                laCircle.setRadius(Math.sqrt(laPop) * 100);
-            }
-            if (chicagoPop) {
-                //console.log(tick + " " + laPop + " LA");
-                chicagoCircle.setRadius(Math.sqrt(chicagoPop) * 100);
-            }
-            if (houstonPop) {
-                //console.log(tick + " " + laPop + " LA");
-                houstonCircle.setRadius(Math.sqrt(houstonPop) * 100);
-            }
-        }, 10);
+            tick++;
+        }, 50);
 }
