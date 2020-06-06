@@ -3,14 +3,11 @@ var accessToken = "GOES HERE";
 var tick = 1690;
 var circles = [];
 
-// return JSON data from any file path (asynchronous)
 function getJSON(path) {
     return fetch(path).then(response => response.json());
 }
 
-// load JSON data; then proceed
 getJSON('/combined.json').then(data => {
-    // assign allQuestions with data
     console.log(data);
     main(data);
 })
@@ -31,7 +28,6 @@ function main(data) {
     }).addTo(mymap);
 
     for (city of data) {
-        // TODO lat/longs are offset?
         var circle = L.circle([city.lat, city.long], {
             color: 'red',
             fillColor: '#f03',
@@ -65,7 +61,6 @@ function main(data) {
                 if (pop) {
                     circles[i].setRadius(Math.sqrt(pop) * 100);
                 }
-                //debugger;
             }
             tick++;
         }, 50);
