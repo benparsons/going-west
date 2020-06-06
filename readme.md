@@ -4,7 +4,7 @@
 
 Render the population of USA as it moves west. Get Census population data from Wikipedia because I couldn't find the correct sources directly.
 
-## Run it
+## Run it
 
 Get the data:
 
