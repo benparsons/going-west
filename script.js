@@ -1,7 +1,4 @@
-// wikipedia get example
-// https://en.wikipedia.org/w/api.php?action=query&prop=revisions&titles=Chicago&rvslots=*&rvprop=content&formatversion=2
-
-//window.addEventListener("load", main);
+var accessToken = "GOES HERE";
 
 var tick = 1690;
 var circles = [];
@@ -24,15 +21,13 @@ function main(data) {
     var y = -0.09;
     var radius = 0;
     console.log("read")
-    //var accessToken = "pk.eyJ1IjoiYmVucGFyc29ucyIsImEiOiJja2FyYXpseGswaDdiMnpwcjdpeHNoc3V3In0.2ViTP8JCg2WcVpBRycg0EA";
     var mymap = L.map('mapid').setView([37.405074, -97.163086], 5);
-    L.tileLayer(`https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}`, {
+    L.tileLayer(`https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${accessToken}`, {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
         maxZoom: 18,
         id: 'mapbox/streets-v11',
         tileSize: 512,
-        zoomOffset: -1,
-        accessToken: 'pk.eyJ1IjoiYmVucGFyc29ucyIsImEiOiJja2FyYXpseGswaDdiMnpwcjdpeHNoc3V3In0.2ViTP8JCg2WcVpBRycg0EA'
+        zoomOffset: -1
     }).addTo(mymap);
 
     for (city of data) {
